@@ -287,3 +287,21 @@ body{
     gap: 10px;
 }
 
+.favBg{
+    background-color: rgba(60, 60, 60, 0.9); 
+    height: 455px;
+    width: 200px;
+    position: absolute;
+    right: 0px;
+    bottom: 180px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.favText{
+    color: white;
+    font-family: inter;
+    font-size: 20px;
+}
