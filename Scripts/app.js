@@ -1,13 +1,11 @@
-import { APIKEY } from './environment.js';   
-
-
-
+import { APIKEY } from './environment.js';
 
 let cityName = document.getElementById("cityName");
 let todaysTmp = document.getElementById("todaysTmp");
 let weekTime = document.getElementById("weekTime");
 let Month = document.getElementById("Month");
 let maxMinTmp = document.getElementById("maxMinTmp");
+
 let type1Icon = document.getElementById("type1Icon");
 let type2Icon = document.getElementById("type2Icon");
 let type3Icon = document.getElementById("type3Icon");
@@ -31,52 +29,47 @@ let nextDay4Tmp = document.getElementById("nextDay4Tmp");
 let nextDay5Tmp = document.getElementById("nextDay5Tmp");
 
 
-
-//Geo location is a built in API that allows the user to share there location apon request.
-
-//navigator.geolocation this return geolocation object
-//getCurrentPosition method lets the web app get the current position
-
-navigator.geolocation.getCurrentPosition(success, errorFunc);
-//You can think of this as an if statment if user accepts we run success else we run errorFunc
-
-//Example of the geolocation Object below
-{
-    coords: {
-        latitude: 32.1234;
-        longitude: 13.1234;
-    }
-}
-
-//If the user accepts we run success function
-function success(position){
-    console.log(position);
-    console.log("Our latitude: " + position.coords.latitude);
-    console.log("Our longitude: " + position.coords.longitude);
-    console.log("We know where you are!");
-
-}
-
-//If the user denies we run errorFunc
-function errorFunc(error){
-    console.log(error.message);
-}
+const searchInput = document.querySelector('.search');
 
 
-
-
-//Create the apiCall while using the APIKEY from the environment.js file
-
-function apiCall () {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=stockton,ca,us&appid=${APIKEY}&units=imperial`)
+function apiCall(city) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKEY}&units=imperial`)
     .then((response) => {
-        return response.json()
+        if (!response.ok) {
+            throw new Error('City not found');
+        }
+        return response.json();
     })
     .then((data) => {
+        
+        todaysTmp.textContent = `${Math.round(data.main.temp)}°`;
+        
+       
+        cityName.textContent = data.name;
+
+        
+        maxMinTmp.textContent = `Max: ${Math.round(data.main.temp_max)}° / Min: ${Math.round(data.main.temp_min)}°`;
+
+
         console.log(data);
     })
+    .catch((error) => {
+        console.error('Error:', error);
+        cityName.textContent = 'City not found';
+        todaysTmp.textContent = '--°';
+    });
 }
 
-apiCall();
 
+searchInput.addEventListener('keypress', (event) => {
+   
+    if (event.key === 'Enter') {
+        const city = searchInput.value.trim();
+        
+        if (city) {
+            apiCall(city);
+        }
+    }
+});
 
+apiCall('Stockton');

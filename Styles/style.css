@@ -22,11 +22,26 @@ body{
 
 .searchbg{
     background-color: rgba(60, 60, 60, 0.9); 
-    width: 42%;
+    width: 30%;
     height: 43px;
    border-end-start-radius: 20px;
    border-end-end-radius: 20px;
    margin-top: -10px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.search{
+    border: 0;
+    outline: 0;
+    background-color: rgb(39, 39, 39);
+    border-radius: 30px;
+    height: 20px;
+    width: 400px;
+    font-family: inter;
+    padding-left: 10px;
+    color: white;
 }
 
 .mainbg{
@@ -210,8 +225,14 @@ body{
 .nextdaysImgPos{
     display: flex;
     justify-content: space-evenly;
-    margin-left: -50px;
+    margin-left: -70px;
     margin-top: -20px;
+}
+
+.nextdaysTmp{
+    color: white;
+    font-family: inter;
+    font-size: 20px;
 }
 
 .rainIcon{
@@ -265,3 +286,4 @@ body{
     justify-content: center;
     gap: 10px;
 }
+
